@@ -23,7 +23,7 @@ function Navbar({ isLoggedIn, userData, userType, handleLogout }) {
   };
 
   const handleLogoutClick = () => {
-    handleLogout(); // This will only run when the user actually clicks logout
+    handleLogout(); // This will only run when the user clicks logout
     navigate('/');
   };
 
@@ -44,9 +44,9 @@ function Navbar({ isLoggedIn, userData, userType, handleLogout }) {
           )}
            {isLoggedIn && userType === 'petCareProvider' ? (
             <li><Link to="/appointments">My Appointments</Link></li>
-          ) : (
+          ) : isLoggedIn && userType === 'petOwner' ? (
             <li><Link to="/history">History</Link></li>
-          )}
+          ) : null}
           <li><Link to="/contact">Contact</Link></li>
           <li><Link to="/about">About Us</Link></li>
           {isLoggedIn ? (

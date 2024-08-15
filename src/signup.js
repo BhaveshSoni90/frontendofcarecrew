@@ -105,7 +105,7 @@ const Signup = ({ onSignup }) => {
     });
 
     try {
-      const response = await fetch('http://localhost:5000/signup', {
+      const response = await fetch('https://backendofcarecrew.vercel.app/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
