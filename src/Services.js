@@ -11,7 +11,7 @@ const Services = ({ userData }) => {
   useEffect(() => {
     const fetchProviders = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/providers');
+        const response = await axios.get('https://backendofcarecrew.onrender.com/providers');
         setProviders(response.data);
       } catch (err) {
         setError('Error fetching providers');

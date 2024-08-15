@@ -17,7 +17,7 @@ const ManageServices = ({ userData }) => {
 
       try {
         console.log('Fetching bookings for provider ID:', providerId);
-        const response = await axios.get(`http://localhost:5000/provider/${providerId}/bookings`);
+        const response = await axios.get(`https://backendofcarecrew.onrender.com/provider/${providerId}/bookings`);
         console.log('Bookings response:', response.data);
         // Filter bookings with status 'Pending'
         const pendingBookings = response.data.filter(booking => booking.status === 'Pending');

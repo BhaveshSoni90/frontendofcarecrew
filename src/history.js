@@ -20,7 +20,7 @@ const History = ({ userData }) => {
       console.log('Customer ID:', customerId); // Debugging line
 
       try {
-        const response = await axios.get(`http://localhost:5000/customer/${customerId}/bookings`);
+        const response = await axios.get(`https://backendofcarecrew.onrender.com/customer/${customerId}/bookings`);
         setBookings(response.data);
       } catch (err) {
         setError('Error fetching bookings');

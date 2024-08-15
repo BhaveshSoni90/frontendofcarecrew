@@ -17,7 +17,7 @@ const MyAppointments = ({ userData }) => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:5000/provider/${providerId}/bookings`);
+        const response = await axios.get(`https://backendofcarecrew.onrender.com/${providerId}/bookings`);
         const accepted = response.data.filter(booking => booking.status === 'Accepted');
         const rejected = response.data.filter(booking => booking.status === 'Rejected');
         setAcceptedBookings(accepted);
