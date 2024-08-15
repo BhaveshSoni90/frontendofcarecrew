@@ -1,0 +1,87 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 90%;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 80px; /* Adjust height as needed */
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 30px;
+    margin: 1% 5%;
+  }
+  
+  .navbar.sticky {
+    background-color: #4CAF50; /* Green color */
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px; /* Adjust padding as needed */
+  }
+  
+  .navbar-brand {
+    font-size: 27px;
+    font-weight: bold;
+    color: #292020;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    color: #1e1c1c;
+    text-decoration: none;
+    padding: 30px;
+    border-radius: 30px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .nav-links li a:hover {
+    background-color: #fff;
+    color: #062907;
+  }
+ 
+  
+  .main-content {
+    padding-top: 100px; /* Adjust to match navbar height */
+  }
+  
+  body {
+    position: relative; /* Change to relative to avoid conflicts */
+    /* background-image: url('./project\ images/care.jpeg');  */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: peachpuff;
+  }
+  
+  .navbar-brand, .project-name, .nav-links li a {
+    color: #e4d6d6; /* Or another high-contrast color like #E8E8E8 */
+    text-shadow: 1px 1px 2px rgba(2, 1, 15, 0.5);
+    font-weight: bold;
+  }
+
+  .menu-icon {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it’s above other elements */
+  }
+  
+  .menu-icon-bar {
+    width: 25px;
+    height: 2px;
+    background-color: #e4d6d6; /* Color of the menu icon */
+    margin: 3px 0;
+  }
+  
+
+  

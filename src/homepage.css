@@ -1,0 +1,28 @@
+.homepage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section {
+  display: flex;
+  width: 80%;
+  margin-bottom: 20px;
+  margin-top: 5%;
+}
+
+.left-image {
+  width: 30%;
+  margin-right: 20px;
+  border-radius: 13%;
+}
+
+.right-image {
+  width: 30%;
+  margin-left: 20px;
+  border-radius: 13%;
+}
+
+.para{
+  margin-top: 10%;
+}
