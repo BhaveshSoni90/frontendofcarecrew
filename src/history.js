@@ -10,7 +10,8 @@ const History = ({ userData }) => {
   useEffect(() => {
     const fetchBookings = async () => {
       const customerId = userData?.user?._id;
-
+      console.log('userData:', userData);
+      console.log('customerId:', customerId);
       if (!customerId) {
         console.warn('customer ID is undefined, waiting for data...');
         return;
