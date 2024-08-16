@@ -64,41 +64,31 @@ nav ul li a:hover {
 }
 
 /* Hamburger Menu Styles */
-.hamburger {
+.menu-icon {
   display: none;
   cursor: pointer;
 }
 
-.hamburger .line {
+.menu-icon .line {
   width: 25px;
-  height: 1px;
+  height: 2px; /* Thicker line for visibility */
   background-color: #1f1f1f;
   display: block;
-  margin: 7px auto;
+  margin: 5px auto; /* Space between lines */
   transition: all 0.3s ease-in-out;
 }
 
-.hamburger-active {
-  transition: all 0.3s ease-in-out;
-  transition-delay: 0.6s;
-  transform: rotate(45deg);
+/* Active Menu Icon Styles */
+.menu-icon-active .line:nth-child(2) {
+  width: 0;
 }
 
-.hamburger-active .line:nth-child(2) {
-  width: 0px;
+.menu-icon-active .line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
 }
 
-.hamburger-active .line:nth-child(1),
-.hamburger-active .line:nth-child(3) {
-  transition-delay: 0.3s;
-}
-
-.hamburger-active .line:nth-child(1) {
-  transform: translateY(12px);
-}
-
-.hamburger-active .line:nth-child(3) {
-  transform: translateY(-5px) rotate(90deg);
+.menu-icon-active .line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Mobile Menu Styles */
@@ -109,7 +99,7 @@ nav ul li a:hover {
 }
 
 .nav-links.open {
-  display: block;
+  display: flex;
 }
 
 .nav-links li {
@@ -135,27 +125,26 @@ nav ul li a:hover {
 
 /* Menu bar styles for mobile */
 @media screen and (max-width: 790px) {
-  .hamburger {
+  .menu-icon {
     display: block;
-  }
-  .nav-links ul{
-    flex-direction: column;
   }
 
   .nav-links {
-    position: absolute;
+    position: absolute; /* Fixed position for proper overlay */
     top: 0;
-    left: -60%;
+    left: -100%; /* Hide menu off-screen initially */
     display: flex;
-    justify-content: left;
-    flex-direction: column-reverse;
-    align-items: last baseline;
-    width: 28%;
-    height: 100vh;
-    padding: 20% 0 0 0;
-    background: rgba(255, 255, 255);
-    transition: all 0.5s ease-in;
+    flex-direction: column; /* Vertical layout for mobile */
+    width: 60%; /* Full width */
+    height: 100vh; /* Full viewport height */
+    padding: 20px; /* Padding around the menu */
+    background: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+    transition: all 0.5s ease-in-out;
     z-index: 2;
+  }
+
+  .nav-links.open {
+    left: 0; /* Show menu when open */
   }
 
   /* Close Button Styles */
@@ -167,13 +156,10 @@ nav ul li a:hover {
     font-size: 1.5rem;
     cursor: pointer;
     color: #000;
-    display: none;
   }
 
-  .nav-links.open {
-    left: 0;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  .nav-links li {
+    margin: 10px 0; /* Space between items */
+    text-align: center; /* Center align items */
   }
-
-
 }
