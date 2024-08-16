@@ -1,66 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './history.css';
+import './myappointments.css';
 
 const History = ({ userData }) => {
-  const [bookings, setBookings] = useState([]);
+  const [acceptedBookings, setAcceptedBookings] = useState([]);
+  const [rejectedBookings, setRejectedBookings] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const customerId = userData?.user?._id; // Retrieve providerId from userData
+      const customerId = userData?.user?._id;
 
       if (!customerId) {
-        console.warn('Provider ID is undefined, waiting for data...');
-        return; // Don't fetch until providerId is available
+        console.warn('customer ID is undefined, waiting for data...');
+        return;
       }
 
       try {
-        console.log('Fetching bookings for customer ID:', customerId);
         const response = await axios.get(`https://backendofcarecrew.onrender.com/customer/${customerId}/bookings`);
-        console.log('Bookings response:', response.data);
-        // Filter bookings with status 'Pending'
-        const pendingBookings = response.data.filter(booking => booking.status === 'Pending');
-        setBookings(pendingBookings);
+        const accepted = response.data.filter(booking => booking.status === 'Accepted');
+        const rejected = response.data.filter(booking => booking.status === 'Rejected');
+        setAcceptedBookings(accepted);
+        setRejectedBookings(rejected);
       } catch (err) {
-        setError('No Available Bookings');
-        console.error('No Available Bookings:', err);
+        setError('Error fetching bookings');
+        console.error('No bookings:', err);
       }
     };
 
     fetchBookings();
   }, [userData]);
 
-  const handleAction = async (bookingId, action) => {
-    try {
-      await axios.patch(`https://backendofcarecrew.onrender.com/booking/${bookingId}`, { status: action });
-      setBookings(prevBookings => prevBookings.map(booking =>
-        booking._id === bookingId ? { ...booking, status: action } : booking
-      ).filter(booking => booking.status === 'Pending')); // Ensure only pending bookings are shown
-    } catch (err) {
-      alert('Error updating booking status');
-      console.error('Error updating booking status:', err);
-    }
-  };
-
   return (
-    <div className="manage-services-container">
-      <h2>History of bookings</h2>
+    <div className="my-appointments-container">
+      <h2>My Appointments</h2>
       {error && <p className="error">{error}</p>}
-      <div className="bookings-list">
-        {bookings.length > 0 ? (
-          bookings.map(booking => (
+      
+      <div className="appointments-list">
+        <h3>Accepted Bookings</h3>
+        {acceptedBookings.length > 0 ? (
+          acceptedBookings.map(booking => (
             <div key={booking._id} className="booking-block">
-              <h3>Service: {booking.service}</h3>
-              <p><strong>provider ID:</strong> {booking.providerId?._id}</p> {/* Assuming customerId is populated */}
-              <p><strong>Days:</strong> {booking.days?.join(', ') || 'N/A'}</p> {/* Display days if available */}
+              <h4>Service: {booking.service}</h4>
+              <p><strong>Customer ID:</strong> {booking.customerId}</p>
+              <p><strong>Days:</strong> {booking.days?.join(', ') || 'N/A'}</p>
               <p><strong>Status:</strong> {booking.status}</p>
-              <button onClick={() => handleAction(booking._id, 'Accepted')}>Accept</button>
-              <button onClick={() => handleAction(booking._id, 'Rejected')}>Reject</button>
             </div>
           ))
         ) : (
-          <p>No booking found.</p>
+          <p>No accepted bookings found.</p>
+        )}
+        
+        <h3>Rejected Bookings</h3>
+        {rejectedBookings.length > 0 ? (
+          rejectedBookings.map(booking => (
+            <div key={booking._id} className="booking-block">
+              <h4>Service: {booking.service}</h4>
+              <p><strong>Customer ID:</strong> {booking.customerId}</p>
+              <p><strong>Days:</strong> {booking.days?.join(', ') || 'N/A'}</p>
+              <p><strong>Status:</strong> {booking.status}</p>
+            </div>
+          ))
+        ) : (
+          <p>No rejected bookings found.</p>
         )}
       </div>
     </div>
