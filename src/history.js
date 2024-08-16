@@ -23,8 +23,8 @@ const History = ({ userData }) => {
         const response = await axios.get(`https://backendofcarecrew.onrender.com/customer/${customerId}/bookings`);
         setBookings(response.data);
       } catch (err) {
-        setError('Error fetching bookings');
-        console.error('Error fetching bookings:', err);
+        setError('No Bookings found');
+        console.error('No Bookings found', err);
       } finally {
         setLoading(false); // Stop loading in both success and error cases
       }
