@@ -1,87 +1,179 @@
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 90%;
-    z-index: 999;
-    background-color: rgba(0, 0, 0, 0.5);
-    height: 80px; /* Adjust height as needed */
-    transition: background-color 0.3s ease-in-out;
-    border-radius: 30px;
-    margin: 1% 5%;
-  }
-  
-  .navbar.sticky {
-    background-color: #4CAF50; /* Green color */
-  }
-  
-  .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px; /* Adjust padding as needed */
-  }
-  
-  .navbar-brand {
-    font-size: 27px;
-    font-weight: bold;
-    color: #292020;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav-links li a {
-    color: #1e1c1c;
-    text-decoration: none;
-    padding: 30px;
-    border-radius: 30px;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .nav-links li a:hover {
-    background-color: #fff;
-    color: #062907;
-  }
- 
-  
-  .main-content {
-    padding-top: 100px; /* Adjust to match navbar height */
-  }
-  
-  body {
-    position: relative; /* Change to relative to avoid conflicts */
-    /* background-image: url('./project\ images/care.jpeg');  */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-color: peachpuff;
-  }
-  
-  .navbar-brand, .project-name, .nav-links li a {
-    color: #e4d6d6; /* Or another high-contrast color like #E8E8E8 */
-    text-shadow: 1px 1px 2px rgba(2, 1, 15, 0.5);
-    font-weight: bold;
-  }
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
 
-  .menu-icon {
-    display: none;
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+nav {
+  padding: 5px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  z-index: 1;
+  background: #fff; /* Ensures a white background for better visibility */
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar-brand {
+  font-size: 1.1rem;
+  background: linear-gradient(to right, #b927fc 0%, #2c64fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-left: 1.5rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #000;
+  font-size: 95%;
+  font-weight: 400;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+nav ul li a:hover {
+  background-color: #f5f5f5;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.hamburger .line {
+  width: 25px;
+  height: 1px;
+  background-color: #1f1f1f;
+  display: block;
+  margin: 7px auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger-active {
+  transition: all 0.3s ease-in-out;
+  transition-delay: 0.6s;
+  transform: rotate(45deg);
+}
+
+.hamburger-active .line:nth-child(2) {
+  width: 0px;
+}
+
+.hamburger-active .line:nth-child(1),
+.hamburger-active .line:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.hamburger-active .line:nth-child(1) {
+  transform: translateY(12px);
+}
+
+.hamburger-active .line:nth-child(3) {
+  transform: translateY(-5px) rotate(90deg);
+}
+
+/* Mobile Menu Styles */
+.nav-links {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links.open {
+  display: block;
+}
+
+.nav-links li {
+  margin: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #000;
+  font-size: 95%;
+  font-weight: 400;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.nav-links li a:hover {
+  background-color: #f5f5f5;
+}
+
+.close-button {
+  display: none; /* Hide by default */
+}
+
+/* Menu bar styles for mobile */
+@media screen and (max-width: 790px) {
+  .hamburger {
+    display: block;
+  }
+  .nav-links ul{
     flex-direction: column;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1001; /* Ensure it’s above other elements */
   }
-  
-  .menu-icon-bar {
-    width: 25px;
-    height: 2px;
-    background-color: #e4d6d6; /* Color of the menu icon */
-    margin: 3px 0;
-  }
-  
 
-  
+  .nav-links {
+    position: absolute;
+    top: 0;
+    left: -60%;
+    display: flex;
+    justify-content: left;
+    flex-direction: column-reverse;
+    align-items: last baseline;
+    width: 28%;
+    height: 100vh;
+    padding: 20% 0 0 0;
+    background: rgba(255, 255, 255);
+    transition: all 0.5s ease-in;
+    z-index: 2;
+  }
+
+  /* Close Button Styles */
+  .close-button {
+    display: block; /* Show on small screens */
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #000;
+    display: none;
+  }
+
+  .nav-links.open {
+    left: 0;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+
+
+}
