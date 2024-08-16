@@ -24,7 +24,7 @@ const MyAppointments = ({ userData }) => {
         setRejectedBookings(rejected);
       } catch (err) {
         setError('Error fetching bookings');
-        console.error('Error fetching bookings:', err);
+        console.error('no bookings:', err);
       }
     };
 
