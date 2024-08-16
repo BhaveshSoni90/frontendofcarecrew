@@ -1,98 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './history.css';
 
 const History = ({ userData }) => {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBookings = async () => {
-      // Check if userData is available and contains user ID
-      if (!userData || !userData.user || !userData.user._id) {
-        console.warn('Customer ID is undefined, waiting for data...');
-      
-        return;
+      const customerId = userData?.user?._id; // Retrieve providerId from userData
+
+      if (!customerId) {
+        console.warn('Provider ID is undefined, waiting for data...');
+        return; // Don't fetch until providerId is available
       }
 
-      const customerId = userData.user._id;
-      console.log('Customer ID:', customerId); // Debugging line
-
       try {
-        const response = await axios.get(`https://backendofcarecrew.onrender.com/customer/${customerId}/bookings`);
-        setBookings(response.data);
+        console.log('Fetching bookings for provider ID:', customerId);
+        const response = await axios.get(`https://backendofcarecrew.onrender.com/provider/${customerId}/bookings`);
+        console.log('Bookings response:', response.data);
+        // Filter bookings with status 'Pending'
+        const pendingBookings = response.data.filter(booking => booking.status === 'Pending');
+        setBookings(pendingBookings);
       } catch (err) {
-        setError('No Bookings found');
-        console.error('No Bookings found', err);
-      } finally {
-        setLoading(false); // Stop loading in both success and error cases
+        setError('No Available Bookings');
+        console.error('No Available Bookings:', err);
       }
     };
 
     fetchBookings();
-  }, [userData]); // Depend on userData to rerun the effect when it changes
+  }, [userData]);
 
-  if (loading) {
-    return <p>Loading...</p>; // Show a loading message while data is being fetched
-  }
-
-  if (!userData || !userData.user || !userData.user._id) {
-    return <p>No customer data available.</p>; // Inform the user if no data is available
-  }
-
-  const categorizedBookings = {
-    Accepted: bookings.filter(booking => booking.status === 'Accepted'),
-    Rejected: bookings.filter(booking => booking.status === 'Rejected'),
-    Pending: bookings.filter(booking => booking.status === 'Pending'),
+  const handleAction = async (bookingId, action) => {
+    try {
+      await axios.patch(`https://backendofcarecrew.onrender.com/booking/${bookingId}`, { status: action });
+      setBookings(prevBookings => prevBookings.map(booking =>
+        booking._id === bookingId ? { ...booking, status: action } : booking
+      ).filter(booking => booking.status === 'Pending')); // Ensure only pending bookings are shown
+    } catch (err) {
+      alert('Error updating booking status');
+      console.error('Error updating booking status:', err);
+    }
   };
 
   return (
-    <div className="history-container">
-      <h2>Booking History</h2>
+    <div className="manage-services-container">
+      <h2>Manage Booking Requests</h2>
       {error && <p className="error">{error}</p>}
-
-      <div className="booking-list">
-        <h3>Accepted Bookings</h3>
-        {categorizedBookings.Accepted.length > 0 ? (
-          categorizedBookings.Accepted.map(booking => (
+      <div className="bookings-list">
+        {bookings.length > 0 ? (
+          bookings.map(booking => (
             <div key={booking._id} className="booking-block">
-              <h4>Service: {booking.service}</h4>
-              <p><strong>Provider ID:</strong> {booking.providerId}</p>
-              <p><strong>Days:</strong> {booking.days?.join(', ') || 'N/A'}</p>
+              <h3>Service: {booking.service}</h3>
+              <p><strong>Customer ID:</strong> {booking.customerId?._id}</p> {/* Assuming customerId is populated */}
+              <p><strong>Days:</strong> {booking.days?.join(', ') || 'N/A'}</p> {/* Display days if available */}
               <p><strong>Status:</strong> {booking.status}</p>
+              <button onClick={() => handleAction(booking._id, 'Accepted')}>Accept</button>
+              <button onClick={() => handleAction(booking._id, 'Rejected')}>Reject</button>
             </div>
           ))
         ) : (
-          <p>No accepted bookings found.</p>
-        )}
-
-        <h3>Rejected Bookings</h3>
-        {categorizedBookings.Rejected.length > 0 ? (
-          categorizedBookings.Rejected.map(booking => (
-            <div key={booking._id} className="booking-block">
-              <h4>Service: {booking.service}</h4>
-              <p><strong>Provider ID:</strong> {booking.providerId}</p>
-              <p><strong>Days:</strong> {booking.days?.join(', ') || 'N/A'}</p>
-              <p><strong>Status:</strong> {booking.status}</p>
-            </div>
-          ))
-        ) : (
-          <p>No rejected bookings found.</p>
-        )}
-
-        <h3>Pending Bookings</h3>
-        {categorizedBookings.Pending.length > 0 ? (
-          categorizedBookings.Pending.map(booking => (
-            <div key={booking._id} className="booking-block">
-              <h4>Service: {booking.service}</h4>
-              <p><strong>Provider ID:</strong> {booking.providerId}</p>
-              <p><strong>Days:</strong> {booking.days?.join(', ') || 'N/A'}</p>
-              <p><strong>Status:</strong> {booking.status}</p>
-            </div>
-          ))
-        ) : (
-          <p>No pending bookings found.</p>
+          <p>No booking requests found.</p>
         )}
       </div>
     </div>
