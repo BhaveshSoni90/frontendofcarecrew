@@ -73,7 +73,7 @@ const Services = ({ userData }) => {
     console.log('Service Details:', serviceDetails); // Debugging line
 
     try {
-      const response = await axios.post('http://localhost:5000/book', serviceDetails);
+      const response = await axios.post('https://backendofcarecrew.onrender.com/book', serviceDetails);
       alert('Booking request sent!');
     } catch (err) {
       alert('Error sending booking request');

@@ -23,8 +23,8 @@ const ManageServices = ({ userData }) => {
         const pendingBookings = response.data.filter(booking => booking.status === 'Pending');
         setBookings(pendingBookings);
       } catch (err) {
-        setError('Error fetching bookings');
-        console.error('Error fetching bookings:', err);
+        setError('No Available Bookings');
+        console.error('No Available Bookings:', err);
       }
     };
 
@@ -33,7 +33,7 @@ const ManageServices = ({ userData }) => {
 
   const handleAction = async (bookingId, action) => {
     try {
-      await axios.patch(`http://localhost:5000/booking/${bookingId}`, { status: action });
+      await axios.patch(`https://backendofcarecrew.onrender.com/booking/${bookingId}`, { status: action });
       setBookings(prevBookings => prevBookings.map(booking =>
         booking._id === bookingId ? { ...booking, status: action } : booking
       ).filter(booking => booking.status === 'Pending')); // Ensure only pending bookings are shown
