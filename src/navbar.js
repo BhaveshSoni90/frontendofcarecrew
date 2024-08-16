@@ -1,4 +1,3 @@
-// Navbar.js
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './nav.css';
@@ -33,8 +32,13 @@ function Navbar({ isLoggedIn, userData, userType, handleLogout }) {
         <Link to="/">
           <h1 className="navbar-brand">CareCrew</h1>
         </Link>
-        <div className="menu-icon" onClick={toggleMenu}>
-          {/* Hamburger icon here */}
+        <div 
+          className={`menu-icon ${isMenuOpen ? 'menu-icon-active' : ''}`} 
+          onClick={toggleMenu}
+        >
+          <div className="line"></div>
+          <div className="line"></div>
+          <div className="line"></div>
         </div>
         <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
           {isLoggedIn && userType === 'petCareProvider' ? (
@@ -42,7 +46,7 @@ function Navbar({ isLoggedIn, userData, userType, handleLogout }) {
           ) : (
             <li><Link to="/services">Services</Link></li>
           )}
-           {isLoggedIn && userType === 'petCareProvider' ? (
+          {isLoggedIn && userType === 'petCareProvider' ? (
             <li><Link to="/appointments">My Appointments</Link></li>
           ) : isLoggedIn && userType === 'petOwner' ? (
             <li><Link to="/history">History</Link></li>
