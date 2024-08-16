@@ -16,8 +16,8 @@ const History = ({ userData }) => {
       }
 
       try {
-        console.log('Fetching bookings for provider ID:', customerId);
-        const response = await axios.get(`https://backendofcarecrew.onrender.com/provider/${customerId}/bookings`);
+        console.log('Fetching bookings for customer ID:', customerId);
+        const response = await axios.get(`https://backendofcarecrew.onrender.com/customer/${customerId}/bookings`);
         console.log('Bookings response:', response.data);
         // Filter bookings with status 'Pending'
         const pendingBookings = response.data.filter(booking => booking.status === 'Pending');
@@ -45,14 +45,14 @@ const History = ({ userData }) => {
 
   return (
     <div className="manage-services-container">
-      <h2>Manage Booking Requests</h2>
+      <h2>History of bookings</h2>
       {error && <p className="error">{error}</p>}
       <div className="bookings-list">
         {bookings.length > 0 ? (
           bookings.map(booking => (
             <div key={booking._id} className="booking-block">
               <h3>Service: {booking.service}</h3>
-              <p><strong>Customer ID:</strong> {booking.customerId?._id}</p> {/* Assuming customerId is populated */}
+              <p><strong>provider ID:</strong> {booking.providerId?._id}</p> {/* Assuming customerId is populated */}
               <p><strong>Days:</strong> {booking.days?.join(', ') || 'N/A'}</p> {/* Display days if available */}
               <p><strong>Status:</strong> {booking.status}</p>
               <button onClick={() => handleAction(booking._id, 'Accepted')}>Accept</button>
@@ -60,7 +60,7 @@ const History = ({ userData }) => {
             </div>
           ))
         ) : (
-          <p>No booking requests found.</p>
+          <p>No booking found.</p>
         )}
       </div>
     </div>
