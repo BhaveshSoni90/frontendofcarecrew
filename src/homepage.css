@@ -6,23 +6,47 @@
 
 .section {
   display: flex;
+  flex-direction: column; /* Stack images and text vertically on small screens */
   width: 80%;
   margin-bottom: 20px;
   margin-top: 5%;
 }
 
-.left-image {
-  width: 30%;
-  margin-right: 20px;
-  border-radius: 13%;
-}
-
+.left-image,
 .right-image {
-  width: 30%;
-  margin-left: 20px;
+  width: 100%; /* Default to full width on small screens */
+  max-width: 300px; /* Optional: Set a maximum width for images */
+  margin: 10px 0; /* Adjust margin for vertical stacking */
   border-radius: 13%;
 }
 
-.para{
+/* Tablet and small desktop screens */
+@media (min-width: 481px) and (max-width: 767px) {
+  .section {
+    flex-direction: row; /* Align images side by side */
+    flex-wrap: wrap; /* Allow wrapping to fit within the container */
+  }
+
+  .left-image,
+  .right-image {
+    width: 45%; /* Adjust width for medium screens */
+    margin: 10px 2.5%; /* Margin for horizontal alignment */
+  }
+}
+
+/* Large screens (desktops and tablets) */
+@media (min-width: 768px) {
+  .section {
+    flex-direction: row; /* Align images side by side */
+  }
+
+  .left-image,
+  .right-image {
+    width: 30%; /* Adjust image width for larger screens */
+    margin: 0 20px; /* Margin for horizontal alignment */
+  }
+}
+
+.para {
   margin-top: 10%;
 }
