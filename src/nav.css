@@ -9,26 +9,36 @@
 body {
   padding: 0;
   margin: 0;
+  margin-top: 3%;
   font-family: "Poppins", sans-serif;
 }
 
 nav {
+  position: fixed; /* Fixes the navbar position */
+  top: 2%; /* Space from the top of the page */
+  margin-left: 1%;
+  left: 0;
+  width: 98%; 
   padding: 5px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    rgba(235, 224, 224, 0.3) 0px 1px 3px -1px;
   z-index: 1;
-  background: #fff; /* Ensures a white background for better visibility */
+  background: #faf5f5; /* Ensures a white background for better visibility */
+  border-radius: 20px;
 }
+
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+ 
 }
+
 
 .navbar-brand {
   font-size: 1.1rem;
@@ -124,7 +134,7 @@ nav ul li a:hover {
 }
 
 /* Menu bar styles for mobile */
-@media screen and (max-width: 790px) {
+@media screen and (max-width: 790px)  {
   .menu-icon {
     display: block;
   }
@@ -157,7 +167,9 @@ nav ul li a:hover {
     cursor: pointer;
     color: #000;
   }
-
+body{
+  margin-top: 15%;
+}
   .nav-links li {
     margin: 10px 0; /* Space between items */
     text-align: center; /* Center align items */
