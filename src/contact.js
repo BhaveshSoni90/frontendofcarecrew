@@ -159,7 +159,7 @@ const Contact = () => {
           </p>
           <p>
             <a
-              href="tel:+1234567890"
+              href="tel:+919079165109"
               style={{ textDecoration: 'none' }}
             >
               <button
@@ -171,7 +171,7 @@ const Contact = () => {
               </button>
             </a>
             <a
-              href="mailto:info@carecrew.com?subject=Contact%20Us"
+              href="mailto:bhaveshsoni9079@gmail.com?subject=Contact%20Us"
               style={{ textDecoration: 'none' }}
             >
               <button
