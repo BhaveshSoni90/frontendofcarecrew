@@ -64,7 +64,7 @@ const About = () => {
       <section style={styles.section}>
         <h2 style={styles.sectionHeader}>Contact Us</h2>
         <p style={styles.paragraph}>
-          Have questions or want to learn more about our services? Feel free to reach out to us at <a href="mailto:info@carecrew.com">info@carecrew.com</a> or call us at (123) 456-7890.
+          Have questions or want to learn more about our services? Feel free to reach out to us at <a href="mailto:bhaveshsoni9079@gmail.com">bhaveshsoni9079@gmail.com</a> or call us at +919079165109.
         </p>
       </section>
     </div>
