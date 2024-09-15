@@ -155,7 +155,7 @@ const Contact = () => {
         <div style={styles.contactDetails}>
           <h2>Our Contact Information</h2>
           <p>
-            Address: 123 Pet Lane, Animal City, CA 12345
+            Address: Rajasthan, India
           </p>
           <p>
             <a
