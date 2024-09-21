@@ -18,7 +18,7 @@ function Navbar({ isLoggedIn, userData, userType, handleLogout }) {
   }, []);
 
   const toggleMenu = () => {
-    setIsMenuOpen(false);
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const handleLogoutClick = () => {
