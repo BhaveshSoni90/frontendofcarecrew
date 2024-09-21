@@ -21,9 +21,14 @@ function Navbar({ isLoggedIn, userData, userType, handleLogout }) {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const handleLogoutClick = () => {
-    handleLogout(); // This will only run when the user clicks logout
+    handleLogout();
     navigate('/');
+    closeMenu(); // Close the menu on logout
   };
 
   return (
@@ -42,21 +47,21 @@ function Navbar({ isLoggedIn, userData, userType, handleLogout }) {
         </div>
         <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
           {isLoggedIn && userType === 'petCareProvider' ? (
-            <li><Link to="/manageservices">Manage Services</Link></li>
+            <li><Link to="/manageservices" onClick={closeMenu}>Manage Services</Link></li>
           ) : (
-            <li><Link to="/services">Services</Link></li>
+            <li><Link to="/services" onClick={closeMenu}>Services</Link></li>
           )}
           {isLoggedIn && userType === 'petCareProvider' ? (
-            <li><Link to="/appointments">My Appointments</Link></li>
+            <li><Link to="/appointments" onClick={closeMenu}>My Appointments</Link></li>
           ) : isLoggedIn && userType === 'petOwner' ? (
-            <li><Link to="/history">History</Link></li>
+            <li><Link to="/history" onClick={closeMenu}>History</Link></li>
           ) : null}
-          <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/about">About Us</Link></li>
+          <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
+          <li><Link to="/about" onClick={closeMenu}>About Us</Link></li>
           {isLoggedIn ? (
-            <li><Link to="/logout">Profile</Link></li>
+            <li><Link to="/logout" onClick={handleLogoutClick}>Profile</Link></li>
           ) : (
-            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/login" onClick={closeMenu}>Login</Link></li>
           )}
         </ul>
       </div>
