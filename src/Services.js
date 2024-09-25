@@ -5,6 +5,7 @@ import './services.css';
 const Services = ({ userData }) => {
   const [providers, setProviders] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
   const [selectedDays, setSelectedDays] = useState({});
   const [selectedServices, setSelectedServices] = useState({});
 
@@ -16,6 +17,8 @@ const Services = ({ userData }) => {
       } catch (err) {
         setError('Error fetching providers');
         console.error(err);
+      } finally {
+        setLoading(false); // Set loading to false after the fetch is complete
       }
     };
 
@@ -84,10 +87,10 @@ const Services = ({ userData }) => {
   return (
     <div className="services-container">
       <h2>Available Pet Care Providers</h2>
+      {loading && <p className="loading">Loading service providers...</p>} {/* Loading message */}
       {error && <p className="error">{error}</p>}
       <div className="providers-list">
         {providers.map(provider => {
-          // Calculate total cost here for the services user take
           const totalCost = calculateTotalCost(provider._id);
 
           return (
